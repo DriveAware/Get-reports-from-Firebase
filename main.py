@@ -74,6 +74,7 @@ def main():
 
     groups = [list(result) for key, result in groupby(
         reports, key=lambda obj: obj.type)]
+
     sorted_reports = []
     i = 0
     for group in groups:
@@ -83,7 +84,7 @@ def main():
             temp.append(report)
             if report is group[-1]:
                 temp = []
-        print(len(temp), temp)
+        print(len(temp), temp[0][0])
         data_to_csv(temp, i)
         i += 1
         sorted_reports.append(temp)
@@ -95,7 +96,6 @@ def moc_reports():
     Faker.seed(0)
     types = ['Suspicious Drug Activity', 'Street-based Prostitution']
     data = [[], []]
-
     for i in range(0, 50):
         moc_data = fake.local_latlng()
         data[0].append([types[0], moc_data[0], moc_data[1], 'moc'])
@@ -132,7 +132,7 @@ def print_groups(reports):
     print('Total # reports:', len(reports))
 
 
-def data_to_csv(reports: list, report_id: int):
+def data_to_csv(reports: list, report_id: int = -1):
     with open('reports/report' + str(report_id) + '.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(['Type', 'Latitude', 'Longitude', 'email'])
@@ -147,20 +147,15 @@ def plot_graph():
     df1 = pd.read_csv('reports/report1.csv')
     df1.head()
     df1_size = len(df1)
-    df2 = pd.read_csv('reports/report2.csv')
-    df2.head()
-    df2_size = len(df2)
-
     df['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email'
     df1['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email'
-    df2['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email'
-    colors = ["red", "blue", "green", "royalblue", "crimson", "lightseagreen", "orange", "lightgrey"]
-    scale = df1_size + df2_size
+    scale = df_size + df1_size
     min_size = 5
     if MOC:
         plot_title = 'DriveAware MOC Reports'
     else:
         plot_title = 'DriveAware Reports'
+
     fig = go.Figure()
     fig.add_trace(go.Scattergeo(
         locationmode='USA-states',
@@ -169,9 +164,9 @@ def plot_graph():
         lat=df['Latitude'],
         marker=dict(
             size=min_size + (df_size/scale)*5,
-            color=colors[0],
-            line_color='rgb(40,40,40)',
-            line_width=0.5,
+            color='rgba(255,165,0,0.3)',
+            line_color='rgba(40,40,40)',
+            line_width=1,
             sizemode='area'
         ),
         name='Suspicious Drugs Activity: ' + str(df_size)))
@@ -182,9 +177,9 @@ def plot_graph():
         lat=df1['Latitude'],
         marker=dict(
             size=min_size + (df1_size/scale)*5,
-            color=colors[1],
+            color='rgba(50,205,50,0.3)',
             line_color='rgb(40,40,40)',
-            line_width=0.5,
+            line_width=1,
             sizemode='area'
         ),
         name='Street-based Prostitution: ' + str(df1_size)))
