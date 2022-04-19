@@ -14,7 +14,7 @@ class Report:
         self.email = email
 
     def dump(self):
-        return [self.type, self.latitude, self.longitude, self.email]
+        return [self.type, self.latitude, self.longitude, self.email, self.date, self.time, self.address]
 
     def dump_(self):
         return " ".join(["\nID:", self.key,

@@ -1,12 +1,15 @@
 import csv
+import datetime
+import random
+
 from faker import Faker
 import firebase_admin
 from firebase_admin import db, credentials, auth
 from itertools import groupby
 from classes import Report
 import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
+from geopy.geocoders import Nominatim
 
 MOC = True
 
@@ -14,7 +17,8 @@ MOC = True
 def main():
     if not MOC:
         cred = credentials.Certificate("android-location-699e9-firebase-adminsdk-49wyo-aa19913070.json")
-        firebase_admin.initialize_app(cred, {'databaseURL': 'https://android-location-699e9-default-rtdb.firebaseio.com/'})
+        firebase_admin.initialize_app(cred,
+                                      {'databaseURL': 'https://android-location-699e9-default-rtdb.firebaseio.com/'})
         database = db.reference('Locations')
         data = dict(database.get())
         keys = data.keys()
@@ -96,16 +100,38 @@ def moc_reports():
     Faker.seed(0)
     types = ['Suspicious Drug Activity', 'Street-based Prostitution']
     data = [[], []]
-    for i in range(0, 50):
+    for i in range(0, 25):
         moc_data = fake.local_latlng()
-        data[0].append([types[0], moc_data[0], moc_data[1], 'moc'])
+        data[0].append([types[0], moc_data[0], moc_data[1], 'moc@moc.com'])
         moc_data = fake.local_latlng()
-        data[1].append([types[1], moc_data[0], moc_data[1], 'moc'])
+        data[1].append([types[1], moc_data[0], moc_data[1], 'moc@moc.com'])
     reports = []
     for group in data:
         for report in group:
-            reports.append(Report('', report[0], report[1], report[2], '', '', '', '', '', '', report[3]))
+            reports.append(Report('', report[0], report[1], report[2], get_random_date(), get_random_time(),
+                                  get_address(report[1], report[2]), '', '', '', report[3]))
     return reports
+
+
+def get_address(latitude, longitude):
+    geolocator = Nominatim(user_agent="DriveAware")
+    location = geolocator.reverse(latitude + ',' + longitude)
+    return location[0]
+
+
+def get_random_time():
+    return str(random.randint(0, 59)) + ':' + str(random.randint(0, 59)) + ':' + str(random.randint(0, 59))
+
+
+def get_random_date():
+    # ref: https://www.adamsmith.haus/python/answers/how-to-generate-a-random-date-between-two-dates-in-python
+    start_date = datetime.date(2019, 1, 1)
+    end_date = datetime.date(2020, 12, 31)
+    time_between_dates = end_date - start_date
+    days_between_dates = time_between_dates.days
+    random_number_of_days = random.randrange(days_between_dates)
+    random_date = start_date + datetime.timedelta(days=random_number_of_days)
+    return str(random_date)
 
 
 def get_user_info(user_id):
@@ -135,9 +161,9 @@ def print_groups(reports):
 def data_to_csv(reports: list, report_id: int = -1):
     with open('reports/report' + str(report_id) + '.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
-        writer.writerow(['Type', 'Latitude', 'Longitude', 'email'])
+        writer.writerow(['Type', 'Latitude', 'Longitude', 'Email', 'Date', 'Time', 'Address'])
         for report in reports:
-            writer.writerow([report[0], report[1], report[2], report[3]])
+            writer.writerow([report[0], report[1], report[2], report[3], report[4], report[5], report[6]])
 
 
 def plot_graph():
@@ -147,8 +173,8 @@ def plot_graph():
     df1 = pd.read_csv('reports/report1.csv')
     df1.head()
     df1_size = len(df1)
-    df['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email'
-    df1['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email'
+    df['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email' + 'Date' + 'Time' + 'Address'
+    df1['text'] = df['text']
     scale = df_size + df1_size
     min_size = 5
     if MOC:
@@ -159,11 +185,12 @@ def plot_graph():
     fig = go.Figure()
     fig.add_trace(go.Scattergeo(
         locationmode='USA-states',
-        text=df['Type'] + ', email:' + df['email'],
+        text=df['Type'] + '<br>' + df['Date'] + ' ' + df['Time'] +
+        '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'],
         lon=df['Longitude'],
         lat=df['Latitude'],
         marker=dict(
-            size=min_size + (df_size/scale)*5,
+            size=min_size + (df_size / scale) * 5,
             color='rgba(255,165,0,0.3)',
             line_color='rgba(40,40,40)',
             line_width=1,
@@ -172,11 +199,12 @@ def plot_graph():
         name='Suspicious Drugs Activity: ' + str(df_size)))
     fig.add_trace(go.Scattergeo(
         locationmode='USA-states',
-        text=df['Type'] + ', email:' + df['email'],
+        text=df['Type'] + '<br>' + df['Date'] + ' ' + df['Time'] +
+        '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'],
         lon=df1['Longitude'],
         lat=df1['Latitude'],
         marker=dict(
-            size=min_size + (df1_size/scale)*5,
+            size=min_size + (df1_size / scale) * 5,
             color='rgba(50,205,50,0.3)',
             line_color='rgb(40,40,40)',
             line_width=1,
