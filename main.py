@@ -11,11 +11,11 @@ import plotly.graph_objects as go
 import pandas as pd
 from geopy.geocoders import Nominatim
 
-MOC = True
+MOCK = True
 
 
 def main():
-    if not MOC:
+    if not MOCK:
         cred = credentials.Certificate("android-location-699e9-firebase-adminsdk-49wyo-aa19913070.json")
         firebase_admin.initialize_app(cred,
                                       {'databaseURL': 'https://android-location-699e9-default-rtdb.firebaseio.com/'})
@@ -72,39 +72,31 @@ def main():
 
             reports.append(Report(key, report_type, report_latitude, report_longitude, report_date, report_time,
                                   report_address, user_reporting_id, report_county, report_postal_code, email))
-
     else:
-        reports = moc_reports()
-
-    groups = [list(result) for key, result in groupby(
-        reports, key=lambda obj: obj.type)]
-
-    sorted_reports = []
-    i = 0
-    for group in groups:
-        temp = []
-        for report in group:
-            report = report.dump()
-            temp.append(report)
-            if report is group[-1]:
-                temp = []
-        print(len(temp), temp[0][0])
-        data_to_csv(temp, i)
-        i += 1
-        sorted_reports.append(temp)
+        reports = mock_reports()
+    types = ['Suspicious Drug Activity', 'Street-based Prostitution']
+    reports0 = []
+    reports1 = []
+    for report in reports:
+        if report.get_type() == types[0]:
+            reports0.append(report.dump())
+        else:
+            reports1.append(report.dump())
+    data_to_csv(reports0, 0)
+    data_to_csv(reports1, 1)
     plot_graph()
 
 
-def moc_reports():
+def mock_reports():
     fake = Faker()
     Faker.seed(0)
     types = ['Suspicious Drug Activity', 'Street-based Prostitution']
     data = [[], []]
     for i in range(0, 25):
-        moc_data = fake.local_latlng()
-        data[0].append([types[0], moc_data[0], moc_data[1], 'moc@moc.com'])
-        moc_data = fake.local_latlng()
-        data[1].append([types[1], moc_data[0], moc_data[1], 'moc@moc.com'])
+        mock_data = fake.local_latlng()
+        data[0].append([types[0], mock_data[0], mock_data[1], 'moc@moc.com'])
+        mock_data = fake.local_latlng()
+        data[1].append([types[1], mock_data[0], mock_data[1], 'moc@moc.com'])
     reports = []
     for group in data:
         for report in group:
@@ -114,8 +106,8 @@ def moc_reports():
 
 
 def get_address(latitude, longitude):
-    geolocator = Nominatim(user_agent="DriveAware")
-    location = geolocator.reverse(latitude + ',' + longitude)
+    geo_locator = Nominatim(user_agent="DriveAware")
+    location = geo_locator.reverse(latitude + ',' + longitude)
     return location[0]
 
 
@@ -174,10 +166,10 @@ def plot_graph():
     df1.head()
     df1_size = len(df1)
     df['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email' + 'Date' + 'Time' + 'Address'
-    df1['text'] = df['text']
-    scale = df_size + df1_size
-    min_size = 5
-    if MOC:
+    df1['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email' + 'Date' + 'Time' + 'Address'
+    # scale = df_size + df1_size
+    trace_size = 10
+    if MOCK:
         plot_title = 'DriveAware MOC Reports'
     else:
         plot_title = 'DriveAware Reports'
@@ -190,7 +182,7 @@ def plot_graph():
         lon=df['Longitude'],
         lat=df['Latitude'],
         marker=dict(
-            size=min_size + (df_size / scale) * 5,
+            size=trace_size,
             color='rgba(255,165,0,0.3)',
             line_color='rgba(40,40,40)',
             line_width=1,
@@ -199,12 +191,12 @@ def plot_graph():
         name='Suspicious Drugs Activity: ' + str(df_size)))
     fig.add_trace(go.Scattergeo(
         locationmode='USA-states',
-        text=df['Type'] + '<br>' + df['Date'] + ' ' + df['Time'] +
-        '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'],
+        text=df1['Type'] + '<br>' + df1['Date'] + ' ' + df1['Time'] +
+        '<br>Address:' + df1['Address'] + '<br>Email:' + df1['Email'],
         lon=df1['Longitude'],
         lat=df1['Latitude'],
         marker=dict(
-            size=min_size + (df1_size / scale) * 5,
+            size=trace_size,
             color='rgba(50,205,50,0.3)',
             line_color='rgb(40,40,40)',
             line_width=1,
@@ -220,7 +212,7 @@ def plot_graph():
         )
     )
     # fig.show()
-    if MOC:
+    if MOCK:
         fig.write_html("DriveAware_MOC_Report.html")
     else:
         fig.write_html("DriveAware_Report.html")

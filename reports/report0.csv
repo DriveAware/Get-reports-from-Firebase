@@ -1,51 +1,26 @@
-Type,Latitude,Longitude,email
-Suspicious Drug Activity,40.72371,-73.95097,moc
-Suspicious Drug Activity,30.17746,-81.38758,moc
-Suspicious Drug Activity,33.93113,-117.54866,moc
-Suspicious Drug Activity,41.0051,-73.78458,moc
-Suspicious Drug Activity,34.09668,-117.71978,moc
-Suspicious Drug Activity,40.65995,-111.99633,moc
-Suspicious Drug Activity,32.9156,-117.14392,moc
-Suspicious Drug Activity,41.85059,-87.882,moc
-Suspicious Drug Activity,32.52515,-93.75018,moc
-Suspicious Drug Activity,41.15376,-87.88754,moc
-Suspicious Drug Activity,46.32374,-120.00865,moc
-Suspicious Drug Activity,41.9001,-71.08977,moc
-Suspicious Drug Activity,38.58894,-89.99038,moc
-Suspicious Drug Activity,33.92946,-116.97725,moc
-Suspicious Drug Activity,38.96372,-76.99081,moc
-Suspicious Drug Activity,40.24537,-75.64963,moc
-Suspicious Drug Activity,40.81,-73.9625,moc
-Suspicious Drug Activity,32.42067,-104.22884,moc
-Suspicious Drug Activity,43.61062,-72.97261,moc
-Suspicious Drug Activity,41.72059,-87.70172,moc
-Suspicious Drug Activity,39.57582,-105.11221,moc
-Suspicious Drug Activity,29.84576,-90.10674,moc
-Suspicious Drug Activity,37.71715,-122.40433,moc
-Suspicious Drug Activity,40.81,-73.9625,moc
-Suspicious Drug Activity,45.0408,-93.263,moc
-Suspicious Drug Activity,42.97086,-82.42491,moc
-Suspicious Drug Activity,29.53885,-95.44744,moc
-Suspicious Drug Activity,37.60876,-77.37331,moc
-Suspicious Drug Activity,35.88264,-80.08199,moc
-Suspicious Drug Activity,44.27804,-88.27205,moc
-Suspicious Drug Activity,38.06084,-97.92977,moc
-Suspicious Drug Activity,33.93113,-117.54866,moc
-Suspicious Drug Activity,39.33427,-76.43941,moc
-Suspicious Drug Activity,32.42067,-104.22884,moc
-Suspicious Drug Activity,37.95143,-91.77127,moc
-Suspicious Drug Activity,45.0408,-93.263,moc
-Suspicious Drug Activity,26.18924,-98.15529,moc
-Suspicious Drug Activity,39.57582,-105.11221,moc
-Suspicious Drug Activity,41.75338,-86.11084,moc
-Suspicious Drug Activity,29.84576,-90.10674,moc
-Suspicious Drug Activity,40.72371,-73.95097,moc
-Suspicious Drug Activity,44.99012,-123.02621,moc
-Suspicious Drug Activity,41.47892,-87.45476,moc
-Suspicious Drug Activity,29.53885,-95.44744,moc
-Suspicious Drug Activity,28.15112,-82.46148,moc
-Suspicious Drug Activity,41.72059,-87.70172,moc
-Suspicious Drug Activity,33.54428,-84.23381,moc
-Suspicious Drug Activity,34.25807,-88.70464,moc
-Suspicious Drug Activity,26.2173,-80.22588,moc
-Suspicious Drug Activity,36.91023,-121.75689,moc
+Type,Latitude,Longitude,Email,Date,Time,Address
+Suspicious Drug Activity,40.72371,-73.95097,moc@moc.com,2019-02-23,59:40:58,"75, Nassau Avenue, Brooklyn, Kings County, New York, 11222, United States"
+Suspicious Drug Activity,30.17746,-81.38758,moc@moc.com,2020-06-21,28:4:23,"4803, Palm Valley Road, Palm Valley, Saint Johns County, Florida, 32082, United States"
+Suspicious Drug Activity,33.93113,-117.54866,moc@moc.com,2020-03-21,53:40:58,"1233, 5th Street, Norco, Riverside County, California, 92860, United States"
+Suspicious Drug Activity,41.0051,-73.78458,moc@moc.com,2020-11-16,47:59:43,"1170, Post Road, Murray Hill, Scarsdale, Westchester County, New York, 10583, United States"
+Suspicious Drug Activity,34.09668,-117.71978,moc@moc.com,2019-07-14,27:2:34,"Foothill Transit 492, Bonita Avenue, Claremont, Los Angeles County, California, 91711-4539, United States"
+Suspicious Drug Activity,40.65995,-111.99633,moc@moc.com,2020-11-23,25:54:15,"4419, 5015 South, West Valley City, Salt Lake County, Utah, 84118, United States"
+Suspicious Drug Activity,32.9156,-117.14392,moc@moc.com,2019-11-17,9:45:20,"Camino Ruiz, Mira Mesa, San Diego, San Diego County, California, 92126, United States"
+Suspicious Drug Activity,41.85059,-87.882,moc@moc.com,2019-07-09,22:30:14,"South Mannheim Road, Westchester, Proviso Township, Cook County, Illinois, 60525, United States"
+Suspicious Drug Activity,32.52515,-93.75018,moc@moc.com,2019-03-19,19:40:56,"River Parkway, Shreveport, Caddo Parish, Louisiana, 71101, United States"
+Suspicious Drug Activity,41.15376,-87.88754,moc@moc.com,2020-05-04,27:22:6,"729, Olde Oak Drive, Bourbonnais, Kankakee County, Illinois, 60914, United States"
+Suspicious Drug Activity,46.32374,-120.00865,moc@moc.com,2020-05-19,7:16:56,"599, South 9th Street, Sunnyside, Yakima County, Washington, 98944, United States"
+Suspicious Drug Activity,41.9001,-71.08977,moc@moc.com,2020-05-05,57:34:14,"Allans Avenue, Taunton, Bristol County, Massachusetts, 02780, United States"
+Suspicious Drug Activity,38.58894,-89.99038,moc@moc.com,2019-05-29,59:21:0,"54, North Brook Circle, Fairview Heights, Saint Clair County, Illinois, 62208, United States"
+Suspicious Drug Activity,33.92946,-116.97725,moc@moc.com,2019-12-14,8:38:2,"Beaumont Avenue, Beaumont, Riverside County, California, 92223, United States"
+Suspicious Drug Activity,38.96372,-76.99081,moc@moc.com,2019-05-20,25:17:50,"6012, Riggs Road, Green Meadows, Chillum Manor, Hyattsville, Prince George's County, Maryland, 20783, United States"
+Suspicious Drug Activity,40.24537,-75.64963,moc@moc.com,2019-11-24,42:46:57,"221, East High Street, Hanover Court, Pottstown, Montgomery County, Pennsylvania, 19464, United States"
+Suspicious Drug Activity,40.81,-73.9625,moc@moc.com,2019-10-27,55:2:43,"3025, Broadway, Manhattan Community Board 9, New York County, New York, 10027, United States"
+Suspicious Drug Activity,32.42067,-104.22884,moc@moc.com,2019-12-18,9:6:1,"J J Hagerman House Historic Site, North Canal Street, Carlsbad, Eddy County, New Mexico, 88220, United States"
+Suspicious Drug Activity,43.61062,-72.97261,moc@moc.com,2020-06-09,48:48:21,"1, Woodstock Avenue, Marolin Acres, Rutland City, Rutland County, Vermont, 05701, United States"
+Suspicious Drug Activity,41.72059,-87.70172,moc@moc.com,2019-07-03,0:26:5,"Chase, 3157, West 95th Street, Evergreen Park, Worth Township, Cook County, Illinois, 60805, United States"
+Suspicious Drug Activity,39.57582,-105.11221,moc@moc.com,2020-08-22,56:59:36,"7772, South Cottonwood Mountain, Ken Caryl, Jefferson County, Colorado, 80127, United States"
+Suspicious Drug Activity,29.84576,-90.10674,moc@moc.com,2020-07-31,44:30:49,"2536, Oklahoma Drive, Estelle, Jefferson Parish, Louisiana, 70072, United States"
+Suspicious Drug Activity,37.71715,-122.40433,moc@moc.com,2020-10-14,35:6:21,"372, Wilde Avenue, Visitacion Valley, San Francisco, California, 94134, United States"
+Suspicious Drug Activity,40.81,-73.9625,moc@moc.com,2019-11-04,24:14:4,"3025, Broadway, Manhattan Community Board 9, New York County, New York, 10027, United States"
+Suspicious Drug Activity,45.0408,-93.263,moc@moc.com,2020-10-18,34:15:42,"University Avenue, Columbia Heights, Anoka County, Minnesota, 55421, United States"

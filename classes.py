@@ -13,6 +13,9 @@ class Report:
         self.postal_code = postal_code
         self.email = email
 
+    def get_type(self):
+        return self.type
+
     def dump(self):
         return [self.type, self.latitude, self.longitude, self.email, self.date, self.time, self.address]
 

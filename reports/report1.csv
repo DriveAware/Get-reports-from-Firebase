@@ -1,51 +1,26 @@
-Type,Latitude,Longitude,email
-Street-based Prostitution,41.48199,-81.79819,moc
-Street-based Prostitution,41.72059,-87.70172,moc
-Street-based Prostitution,33.03699,-117.29198,moc
-Street-based Prostitution,42.4251,-71.06616,moc
-Street-based Prostitution,40.72816,-74.07764,moc
-Street-based Prostitution,38.91817,-78.19444,moc
-Street-based Prostitution,34.25628,-78.04471,moc
-Street-based Prostitution,34.25628,-78.04471,moc
-Street-based Prostitution,47.4943,-122.24092,moc
-Street-based Prostitution,33.95015,-118.03917,moc
-Street-based Prostitution,39.71734,-74.96933,moc
-Street-based Prostitution,38.96372,-76.99081,moc
-Street-based Prostitution,42.7392,-84.62081,moc
-Street-based Prostitution,31.84568,-102.36764,moc
-Street-based Prostitution,40.94065,-73.99681,moc
-Street-based Prostitution,43.91452,-69.96533,moc
-Street-based Prostitution,26.18924,-98.15529,moc
-Street-based Prostitution,34.09668,-117.71978,moc
-Street-based Prostitution,37.73604,-120.93549,moc
-Street-based Prostitution,32.54044,-82.90375,moc
-Street-based Prostitution,26.68451,-80.66756,moc
-Street-based Prostitution,40.63316,-74.13653,moc
-Street-based Prostitution,33.45122,-86.99666,moc
-Street-based Prostitution,33.7207,-116.21677,moc
-Street-based Prostitution,41.6764,-91.58045,moc
-Street-based Prostitution,33.08014,-83.2321,moc
-Street-based Prostitution,43.54072,-116.56346,moc
-Street-based Prostitution,41.55815,-73.0515,moc
-Street-based Prostitution,39.72943,-104.83192,moc
-Street-based Prostitution,29.84576,-90.10674,moc
-Street-based Prostitution,42.30865,-83.48216,moc
-Street-based Prostitution,34.14251,-118.25508,moc
-Street-based Prostitution,42.4251,-71.06616,moc
-Street-based Prostitution,41.47892,-87.45476,moc
-Street-based Prostitution,39.57582,-105.11221,moc
-Street-based Prostitution,36.91023,-121.75689,moc
-Street-based Prostitution,46.32374,-120.00865,moc
-Street-based Prostitution,40.34912,-111.90466,moc
-Street-based Prostitution,43.61062,-72.97261,moc
-Street-based Prostitution,47.38093,-122.23484,moc
-Street-based Prostitution,42.30865,-83.48216,moc
-Street-based Prostitution,41.55815,-73.0515,moc
-Street-based Prostitution,31.12406,-97.90308,moc
-Street-based Prostitution,31.12406,-97.90308,moc
-Street-based Prostitution,40.81,-73.9625,moc
-Street-based Prostitution,34.21639,-119.0376,moc
-Street-based Prostitution,36.61033,-88.31476,moc
-Street-based Prostitution,39.43534,-84.20299,moc
-Street-based Prostitution,38.06084,-97.92977,moc
-Street-based Prostitution,40.68066,-73.47429,moc
+Type,Latitude,Longitude,Email,Date,Time,Address
+Street-based Prostitution,41.48199,-81.79819,moc@moc.com,2019-11-25,52:39:26,"14686, Franklin Boulevard, Madison Village, Lakewood, Cuyahoga County, Ohio, 44107, United States"
+Street-based Prostitution,41.72059,-87.70172,moc@moc.com,2020-10-22,37:43:49,"Chase, 3157, West 95th Street, Evergreen Park, Worth Township, Cook County, Illinois, 60805, United States"
+Street-based Prostitution,33.03699,-117.29198,moc@moc.com,2020-03-04,21:8:51,"Swami's Cafe, South Coast Highway 101, Encinitas, San Diego County, California, 92007, United States"
+Street-based Prostitution,42.4251,-71.06616,moc@moc.com,2019-12-15,48:27:59,"221;223;225;229, Centre Street, Bryant Terrace Apartments, Malden Centre, Malden, Middlesex County, Massachusetts, 02148, United States"
+Street-based Prostitution,40.72816,-74.07764,moc@moc.com,2019-03-07,21:52:44,"186, Olean Avenue, Jersey City, Hudson County, New Jersey, 07306, United States"
+Street-based Prostitution,38.91817,-78.19444,moc@moc.com,2020-03-19,2:5:18,"Front Royal United Methodist Church, 1, West Main Street, Viscose City, Front Royal, Warren County, Virginia, 22630, United States"
+Street-based Prostitution,34.25628,-78.04471,moc@moc.com,2020-05-05,22:10:4,"9294, Post Office Road Northeast, Leland, Brunswick County, North Carolina, 28451, United States"
+Street-based Prostitution,34.25628,-78.04471,moc@moc.com,2019-07-08,2:4:4,"9294, Post Office Road Northeast, Leland, Brunswick County, North Carolina, 28451, United States"
+Street-based Prostitution,47.4943,-122.24092,moc@moc.com,2019-06-24,59:4:3,"12043, Renton Avenue South, Seattle, King County, Washington, 98178, United States"
+Street-based Prostitution,33.95015,-118.03917,moc@moc.com,2020-12-13,24:10:47,"9438, Firebird Avenue, South Whittier, Los Angeles County, California, 90605, United States"
+Street-based Prostitution,39.71734,-74.96933,moc@moc.com,2019-01-27,41:46:56,"Williamstown Road, Avandale, Sicklerville, Winslow Township, Camden County, New Jersey, 08081-4368, United States"
+Street-based Prostitution,38.96372,-76.99081,moc@moc.com,2020-07-01,55:22:8,"6012, Riggs Road, Green Meadows, Chillum Manor, Hyattsville, Prince George's County, Maryland, 20783, United States"
+Street-based Prostitution,42.7392,-84.62081,moc@moc.com,2020-04-07,58:24:31,"A Clean Cigarette, Dornet Drive, Bretton Woods, Waverly, Delta Charter Township, Eaton County, Michigan, 48917, United States"
+Street-based Prostitution,31.84568,-102.36764,moc@moc.com,2020-08-06,17:55:46,"Henderson Drug Building, North Grant Avenue, Heap, Odessa, Ector County, Texas, 79761, United States"
+Street-based Prostitution,40.94065,-73.99681,moc@moc.com,2020-08-01,16:35:54,"CVS Pharmacy, Veterans Plaza, Dumont, Bergen County, New Jersey, 07628, United States"
+Street-based Prostitution,43.91452,-69.96533,moc@moc.com,2020-11-23,38:8:45,"Wyler Gallery, Pleasant Street, Brunswick, Cumberland County, Maine, 04011, United States"
+Street-based Prostitution,26.18924,-98.15529,moc@moc.com,2020-02-18,1:9:1,"515, South Nebraska Avenue, San Juan South Estates Colonia, San Juan, Hidalgo County, Texas, 78589, United States"
+Street-based Prostitution,34.09668,-117.71978,moc@moc.com,2019-10-01,43:10:4,"Foothill Transit 492, Bonita Avenue, Claremont, Los Angeles County, California, 91711-4539, United States"
+Street-based Prostitution,37.73604,-120.93549,moc@moc.com,2019-07-04,58:44:39,"Pizza Plus, 3308, Santa Fe Street, Riverbank, Stanislaus County, California, 95367, United States"
+Street-based Prostitution,32.54044,-82.90375,moc@moc.com,2019-11-25,57:44:9,"East Jackson Street, Dublin, Laurens County, Georgia, 31921, United States"
+Street-based Prostitution,26.68451,-80.66756,moc@moc.com,2020-02-27,58:11:45,"245, South Main Street, Belle Glade, Palm Beach County, Florida, 33430, United States"
+Street-based Prostitution,40.63316,-74.13653,moc@moc.com,2019-05-30,0:36:23,"357, Port Richmond Avenue, Port Richmond, Staten Island, Richmond County, New York, 10302, United States"
+Street-based Prostitution,33.45122,-86.99666,moc@moc.com,2019-11-10,20:28:49,"2027, High School Road, Woodmont, Hueytown, Jefferson County, Alabama, 35023, United States"
+Street-based Prostitution,33.7207,-116.21677,moc@moc.com,2020-09-28,36:50:33,"Rincon Norteño Cafe, Indio Boulevard, Indio, Riverside County, California, 92201, United States"
+Street-based Prostitution,41.6764,-91.58045,moc@moc.com,2020-12-01,23:33:34,"553, 12th Avenue, Coralville, Johnson County, Iowa, 52241, United States"
