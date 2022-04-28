@@ -170,10 +170,9 @@ def plot_graph():
     # scale = df_size + df1_size
     trace_size = 10
     if MOCK:
-        plot_title = 'DriveAware MOC Reports'
+        plot_title = 'DriveAware MOCK Reports'
     else:
         plot_title = 'DriveAware Reports'
-
     fig = go.Figure()
     fig.add_trace(go.Scattergeo(
         locationmode='USA-states',
