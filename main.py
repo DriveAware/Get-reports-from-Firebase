@@ -1,7 +1,7 @@
 import csv
 import datetime
+import os
 import random
-
 from faker import Faker
 import firebase_admin
 from firebase_admin import db, credentials, auth
@@ -15,65 +15,15 @@ MOCK = True
 
 
 def main():
-    if not MOCK:
-        cred = credentials.Certificate("android-location-699e9-firebase-adminsdk-49wyo-aa19913070.json")
-        firebase_admin.initialize_app(cred,
-                                      {'databaseURL': 'https://android-location-699e9-default-rtdb.firebaseio.com/'})
-        database = db.reference('Locations')
-        data = dict(database.get())
-        keys = data.keys()
-        reports = []
-        na = "NA"
-        for key in keys:
-            try:
-                report_type = data[key]['type']
-            except KeyError:
-                report_type = na
-            try:
-                report_latitude = data[key]['latitude']
-            except KeyError:
-                report_latitude = na
-            try:
-                report_longitude = data[key]['longitude']
-            except KeyError:
-                report_longitude = na
-            try:
-                report_date = data[key]['date']
-            except KeyError:
-                report_date = na
-            try:
-                report_time = data[key]['time']
-            except KeyError:
-                report_time = na
-            try:
-                report_address = data[key]['address']
-            except KeyError:
-                report_address = na
-            try:
-                user_reporting_id = data[key]['userId']
-            except KeyError:
-                user_reporting_id = na
-            try:
-                report_county = data[key]['county']
-            except KeyError:
-                report_county = na
-            try:
-                report_postal_code = data[key]['postalCode']
-            except KeyError:
-                report_postal_code = na
-            try:
-                anonymous = data[key]['anonymous']
-                if not anonymous:
-                    email = get_user_info(user_reporting_id)
-                else:
-                    email = 'anonymous'
-            except KeyError:
-                email = get_user_info(user_reporting_id)
-
-            reports.append(Report(key, report_type, report_latitude, report_longitude, report_date, report_time,
-                                  report_address, user_reporting_id, report_county, report_postal_code, email))
+    get_csv_reports()
+    if MOCK:
+        save_reports(mock_reports())
     else:
-        reports = mock_reports()
+        save_reports(get_db_reports())
+    plot_graph()
+
+
+def save_reports(reports: list):
     types = ['Suspicious Drug Activity', 'Street-based Prostitution']
     reports0 = []
     reports1 = []
@@ -84,7 +34,66 @@ def main():
             reports1.append(report.dump())
     data_to_csv(reports0, 0)
     data_to_csv(reports1, 1)
-    plot_graph()
+
+
+def get_db_reports():
+    cred = credentials.Certificate("android-location-699e9-firebase-adminsdk-49wyo-aa19913070.json")
+    firebase_admin.initialize_app(cred,
+                                  {'databaseURL': 'https://android-location-699e9-default-rtdb.firebaseio.com/'})
+    database = db.reference('Locations')
+    data = dict(database.get())
+    keys = data.keys()
+    reports = []
+    na = "NA"
+    for key in keys:
+        try:
+            report_type = data[key]['type']
+        except KeyError:
+            report_type = na
+        try:
+            report_latitude = data[key]['latitude']
+        except KeyError:
+            report_latitude = na
+        try:
+            report_longitude = data[key]['longitude']
+        except KeyError:
+            report_longitude = na
+        try:
+            report_date = data[key]['date']
+        except KeyError:
+            report_date = na
+        try:
+            report_time = data[key]['time']
+        except KeyError:
+            report_time = na
+        try:
+            report_address = data[key]['address']
+        except KeyError:
+            report_address = na
+        try:
+            user_reporting_id = data[key]['userId']
+        except KeyError:
+            user_reporting_id = na
+        try:
+            report_county = data[key]['county']
+        except KeyError:
+            report_county = na
+        try:
+            report_postal_code = data[key]['postalCode']
+        except KeyError:
+            report_postal_code = na
+        try:
+            anonymous = data[key]['anonymous']
+            if not anonymous:
+                email = get_user_email(user_reporting_id)
+            else:
+                email = 'anonymous'
+        except KeyError:
+            email = get_user_email(user_reporting_id)
+
+        reports.append(Report(key, report_type, report_latitude, report_longitude, report_date, report_time,
+                              report_address, user_reporting_id, report_county, report_postal_code, email))
+    return reports
 
 
 def mock_reports():
@@ -126,28 +135,13 @@ def get_random_date():
     return str(random_date)
 
 
-def get_user_info(user_id):
+def get_user_email(user_id):
     page = auth.list_users()
     while page:
         for user in page.users:
             if user.uid == user_id:
                 return user.email
         page = page.get_next_page()
-
-
-def print_groups(reports):
-    print('Total # reports:', len(reports))
-    groups = [list(result) for key, result in groupby(
-        reports, key=lambda obj: obj.email)]
-    line = "-------------------------------"
-    print(str(len(groups)) + " group(s)\n")
-    for group in groups:
-        print(str(len(group)) + " report(s)")
-        print(line, end="")
-        for report in group:
-            print(report.dump())
-        print(line)
-    print('Total # reports:', len(reports))
 
 
 def data_to_csv(reports: list, report_id: int = -1):
@@ -158,50 +152,45 @@ def data_to_csv(reports: list, report_id: int = -1):
             writer.writerow([report[0], report[1], report[2], report[3], report[4], report[5], report[6]])
 
 
+def get_csv_reports():
+    directory = 'reports'
+    files = []
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
+        if os.path.isfile(file_path):
+            files.append(file_path)
+    return files
+
+
 def plot_graph():
-    df = pd.read_csv('reports/report0.csv')
-    df.head()
-    df_size = len(df)
-    df1 = pd.read_csv('reports/report1.csv')
-    df1.head()
-    df1_size = len(df1)
-    df['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email' + 'Date' + 'Time' + 'Address'
-    df1['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email' + 'Date' + 'Time' + 'Address'
-    # scale = df_size + df1_size
+    reports = get_csv_reports()
+    types = ['Suspicious Drug Activity', 'Street-based Prostitution']
+    colors = ['rgba(255,165,0,0.3)', 'rgba(50,205,50,0.3)']
     trace_size = 10
     if MOCK:
         plot_title = 'DriveAware MOCK Reports'
     else:
         plot_title = 'DriveAware Reports'
     fig = go.Figure()
-    fig.add_trace(go.Scattergeo(
-        locationmode='USA-states',
-        text=df['Type'] + '<br>' + df['Date'] + ' ' + df['Time'] +
-        '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'],
-        lon=df['Longitude'],
-        lat=df['Latitude'],
-        marker=dict(
-            size=trace_size,
-            color='rgba(255,165,0,0.3)',
-            line_color='rgba(40,40,40)',
-            line_width=1,
-            sizemode='area'
-        ),
-        name='Suspicious Drugs Activity: ' + str(df_size)))
-    fig.add_trace(go.Scattergeo(
-        locationmode='USA-states',
-        text=df1['Type'] + '<br>' + df1['Date'] + ' ' + df1['Time'] +
-        '<br>Address:' + df1['Address'] + '<br>Email:' + df1['Email'],
-        lon=df1['Longitude'],
-        lat=df1['Latitude'],
-        marker=dict(
-            size=trace_size,
-            color='rgba(50,205,50,0.3)',
-            line_color='rgb(40,40,40)',
-            line_width=1,
-            sizemode='area'
-        ),
-        name='Street-based Prostitution: ' + str(df1_size)))
+    for (report, color, type_) in zip(reports, colors, types):
+        df = pd.read_csv(report)
+        df.head()
+        df_size = len(df)
+        df['text'] = 'Type ' + 'Latitude' + 'Longitude' + 'Email' + 'Date' + 'Time' + 'Address'
+        fig.add_trace(go.Scattergeo(
+            locationmode='USA-states',
+            text=df['Type'] + '<br>' + df['Date'] + ' ' + df['Time'] +
+            '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'],
+            lon=df['Longitude'],
+            lat=df['Latitude'],
+            marker=dict(
+                size=trace_size,
+                color=color,
+                line_color='rgba(40,40,40)',
+                line_width=0.5,
+                sizemode='area'
+            ),
+            name=type_ + ': ' + str(df_size)))
     fig.update_layout(
         title_text=plot_title,
         showlegend=True,
@@ -212,7 +201,7 @@ def plot_graph():
     )
     # fig.show()
     if MOCK:
-        fig.write_html("DriveAware_MOC_Report.html")
+        fig.write_html("DriveAware_MOCK_Report.html")
     else:
         fig.write_html("DriveAware_Report.html")
 
