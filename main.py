@@ -5,13 +5,24 @@ import random
 from faker import Faker
 import firebase_admin
 from firebase_admin import db, credentials, auth
-from itertools import groupby
 from classes import Report
 import plotly.graph_objects as go
 import pandas as pd
 from geopy.geocoders import Nominatim
+import pyrebase
 
-MOCK = True
+
+MOCK = False
+config = {
+  "apiKey": "AIzaSyDxX9QaTuO7d_IFNu9TIcbApHf3Pt9ExQw",
+  "authDomain": "android-location-699e9.firebaseapp.com",
+  "databaseURL": "https://android-location-699e9-default-rtdb.firebaseio.com",
+  "projectId": "android-location-699e9",
+  "storageBucket": "android-location-699e9.appspot.com",
+  "messagingSenderId": "786487980961",
+  "appId": "1:786487980961:web:df375320bb4bc11944d1e0",
+  "measurementId": "G-2YXB5JNKX3"
+}
 
 
 def main():
@@ -37,10 +48,14 @@ def save_reports(reports: list):
 
 
 def get_db_reports():
+    a_file = open("../common/report_ids.txt", "w")
+    a_file.truncate()
+    a_file.close()
     cred = credentials.Certificate("android-location-699e9-firebase-adminsdk-49wyo-aa19913070.json")
     firebase_admin.initialize_app(cred,
                                   {'databaseURL': 'https://android-location-699e9-default-rtdb.firebaseio.com/'})
     database = db.reference('Locations')
+    storage = pyrebase.initialize_app(config).storage()
     data = dict(database.get())
     keys = data.keys()
     reports = []
@@ -83,6 +98,15 @@ def get_db_reports():
         except KeyError:
             report_postal_code = na
         try:
+            has_image = str(data[key]['has_image'])
+            if has_image == "True":
+                with open('../common/report_ids.txt', 'a') as filehandle:
+                    filehandle.write('%s\n' % key)
+                storage.child("pictures/" + key + ".jpg").download("/home/alvaro/Desktop/DriveAwarePython/get_reports/",
+                                                                   "images/" + key + ".jgp")
+        except KeyError:
+            has_image = na
+        try:
             anonymous = data[key]['anonymous']
             if not anonymous:
                 email = get_user_email(user_reporting_id)
@@ -92,7 +116,7 @@ def get_db_reports():
             email = get_user_email(user_reporting_id)
 
         reports.append(Report(key, report_type, report_latitude, report_longitude, report_date, report_time,
-                              report_address, user_reporting_id, report_county, report_postal_code, email))
+                              report_address, user_reporting_id, report_county, report_postal_code, email, has_image))
     return reports
 
 
@@ -110,7 +134,7 @@ def mock_reports():
     for group in data:
         for report in group:
             reports.append(Report('', report[0], report[1], report[2], get_random_date(), get_random_time(),
-                                  get_address(report[1], report[2]), '', '', '', report[3]))
+                                  get_address(report[1], report[2]), '', '', '', report[3], False))
     return reports
 
 
@@ -147,9 +171,9 @@ def get_user_email(user_id):
 def data_to_csv(reports: list, report_id: int = -1):
     with open('reports/report' + str(report_id) + '.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
-        writer.writerow(['Type', 'Latitude', 'Longitude', 'Email', 'Date', 'Time', 'Address'])
+        writer.writerow(['Type', 'Latitude', 'Longitude', 'Email', 'Date', 'Time', 'Address', 'Has_image'])
         for report in reports:
-            writer.writerow([report[0], report[1], report[2], report[3], report[4], report[5], report[6]])
+            writer.writerow([report[0], report[1], report[2], report[3], report[4], report[5], report[6], report[7]])
 
 
 def get_csv_reports():
@@ -180,7 +204,7 @@ def plot_graph():
         fig.add_trace(go.Scattergeo(
             locationmode='USA-states',
             text=df['Type'] + '<br>' + df['Date'] + ' ' + df['Time'] +
-            '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'],
+            '<br>Address:' + df['Address'] + '<br>Email:' + df['Email'] + " <a href=\"../common/images/-N2kwbO5uzvYCC9jgmJZ.jgp\">picture</a>",  #  <img src=\"../common/images/-N2kwbO5uzvYCC9jgmJZ.jgp\" width=\"500\" height=\"600\"> ",
             lon=df['Longitude'],
             lat=df['Latitude'],
             marker=dict(
@@ -201,9 +225,9 @@ def plot_graph():
     )
     # fig.show()
     if MOCK:
-        fig.write_html("DriveAware_MOCK_Report.html")
+        fig.write_html("../common/DriveAware_MOCK_Report.html")
     else:
-        fig.write_html("DriveAware_Report.html")
+        fig.write_html("../common/DriveAware_Report.html")
 
 
 if __name__ == "__main__":

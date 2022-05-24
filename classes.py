@@ -1,6 +1,6 @@
 class Report:
     def __init__(self, key: str, report_type: str, latitude: str, longitude: str, date: str, time: str, address: str,
-                 user_id: str, county: str, postal_code: str, email: str):
+                 user_id: str, county: str, postal_code: str, email: str, has_image):
         self.key = key
         self.type = report_type
         self.latitude = latitude
@@ -12,12 +12,14 @@ class Report:
         self.county = county
         self.postal_code = postal_code
         self.email = email
+        self.has_image = has_image
 
     def get_type(self):
         return self.type
 
     def dump(self):
-        return [self.type, self.latitude, self.longitude, self.email, self.date, self.time, self.address]
+        return [self.type, self.latitude, self.longitude, self.email, self.date, self.time, self.address,
+                self.has_image]
 
     def dump_(self):
         return " ".join(["\nID:", self.key,
@@ -28,4 +30,5 @@ class Report:
                          "\nAddress:", self.address,
                          "\nCounty:", self.county,
                          "\nPostal Code:", self.postal_code,
-                         "\nUser ID:", self.user_id])
+                         "\nUser ID:", self.user_id,
+                         "\nHas image:", self.has_image])
